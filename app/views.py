@@ -21,4 +21,4 @@ def home(request):
         'active_campaigns': active_campaigns,
         'unique_recipients': unique_recipients,
     }
-    return render(request, 'home.html', context)
+    return render(request, 'app/home.html', context)

@@ -29,7 +29,7 @@ class Campaign(models.Model):
     message = models.ForeignKey(Message, on_delete=models.CASCADE)
     recipients = models.ManyToManyField(Recipient)
 
-    def __str__(self):  # Fixed method name
+    def __str__(self):
         return f"Рассылка {self.id} - {self.status}"
 
 

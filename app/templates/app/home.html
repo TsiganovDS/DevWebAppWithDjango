@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+{% include 'app/header.html' %}
+<body>
+        <!-- Основной контент -->
+    <main>
+        <section class="hero">
+            <h2>Добро пожаловать на наш сайт!</h2>
+            <p>Здесь вы найдете информацию о наших услугах и последних новостях.</p>
+            <a href="/services" class="cta-button">Узнать больше</a>
+        </section>
+
+        <section class="features">
+            <h2>Наши услуги</h2>
+            <div class="feature">
+                <h3>Услуга 1</h3>
+                <p>Краткое описание услуги 1.</p>
+            </div>
+            <div class="feature">
+                <h3>Услуга 2</h3>
+                <p>Краткое описание услуги 2.</p>
+            </div>
+            <div class="feature">
+                <h3>Услуга 3</h3>
+                <p>Краткое описание услуги 3.</p>
+            </div>
+        </section>
+
+        <section class="news">
+            <h2>Последние новости</h2>
+            <article>
+                <h3><a href="/news/1">Заголовок новости 1</a></h3>
+                <p>Краткое описание новости 1.</p>
+            </article>
+            <article>
+                <h3><a href="/news/2">Заголовок новости 2</a></h3>
+                <p>Краткое описание новости 2.</p>
+            </article>
+        </section>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer>
+        <p>&copy; 2023 Название вашей компании. Все права защищены.</p>
+        <ul>
+            <li><a href="/privacy">Политика конфиденциальности</a></li>
+            <li><a href="/terms">Условия использования</a></li>
+        </ul>
+    </footer>
+
+</body>
+</html>
