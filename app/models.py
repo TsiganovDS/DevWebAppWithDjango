@@ -1,8 +1,8 @@
 from django.db import models
 
 class Recipient(models.Model):
+    full_name = models.CharField(max_length=200, verbose_name='Фамилия Имя')
     email = models.EmailField(unique=True)
-    full_name = models.CharField(max_length=200)
     comment = models.TextField(blank=True)
 
     def __str__(self):
@@ -39,5 +39,5 @@ class SendingAttempt(models.Model):
     status = models.CharField(max_length=15, choices=[('Успешно', 'Успешно'), ('Не успешно', 'Не успешно')])
     server_response = models.TextField()
 
-    def __str__(self):  # Fixed method name
+    def __str__(self):
         return f"Попытка {self.id} - {self.status}"

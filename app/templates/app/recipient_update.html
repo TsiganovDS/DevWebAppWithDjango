@@ -1,0 +1,13 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<form class="card-body text-center" method="POST" action="{% url 'app:recipient_update' recipient.id %}">
+    {% if recipient %}
+        <h1>Редактирование получателя</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-outline-primary" type="submit">Подтвердить</button>
+        <a class="btn btn-outline-primary ms-2" href="/">Назад</a>
+    {% endif %}
+</form>
+{% endblock %}
+

@@ -1,0 +1,34 @@
+{% include 'app/header.html' %}
+<div class="text-center">
+    <h1 class="text-center">Получатели рассылки</h1>
+    <a class="btn btn-outline-primary" href="{% url 'app:recipient_create' %}">Добавить получателя</a>
+    <a class="btn btn-outline-primary" href="{% url 'app:home' %}">Назад</a>
+    <ol class="recipient-list">
+        {% for recipient in recipients %}
+            <li>
+                <span class="recipient-info">
+                    {{ recipient.full_name }} - {{ recipient.email }}
+                </span>
+                <span class="recipient-actions">
+                    <a class="btn btn-outline-primary" href="{% url 'app:recipient_update' recipient.pk %}">Редактировать</a>
+                    <a class="btn btn-outline-danger" href="{% url 'app:recipient_delete' recipient.pk %}">Удалить</a>
+                </span>
+            </li>
+        {% endfor %}
+    </ol>
+</div>
+
+<style>
+    .recipient-list {
+        list-style-position: inside; / Цифры будут внутри списка /
+        padding-left: 0; / Убираем отступ слева /
+    }
+    .recipient-info {
+        text-align: center; / Центруем текст /
+        display: block; / Каждое имя на новой строке /
+    }
+    .recipient-actions {
+        display: block; / Каждое действие на новой строке /
+        text-align: center; / Центруем ссылки /
+    }
+</style>
