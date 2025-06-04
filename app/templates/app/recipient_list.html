@@ -1,0 +1,40 @@
+{% include 'app/base.html' %}
+{% block content %}
+<div class="text-center">
+    <h1 class="text-center text-primary">📧 Получатели рассылок</h1>
+    <div class="mb-4">
+        <a class="btn btn-outline-primary btn-lg" href="{% url 'app:recipient_create' %}">➕ Добавить получателя</a>
+        <a class="btn btn-outline-secondary btn-lg" href="{% url 'app:home' %}">🔙 Назад</a>
+    </div>
+    <ol class="recipient-list list-unstyled">
+        {% for recipient in recipients %}
+            <li class="mb-3">
+                <div class="recipient-info p-3 border rounded shadow-sm">
+                    <span class="h5">{{ recipient.full_name }}</span>
+                    <span class="text-muted"> - {{ recipient.email }}</span>
+                    <span class="text-info"> (ID: {{ recipient.pk }})</span>
+                </div>
+                <div class="recipient-actions mt-2">
+                    <a class="btn btn-outline-primary btn-sm" href="{% url 'app:recipient_update' recipient.pk %}">✏️ Редактировать</a>
+                    <a class="btn btn-outline-danger btn-sm" href="{% url 'app:recipient_delete' recipient.pk %}">🗑️ Удалить</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ol>
+</div>
+
+<style>
+    .recipient-list {
+        list-style-position: inside;
+        padding-left: 0;
+    }
+    .recipient-info {
+        text-align: center;
+        display: block;
+    }
+    .recipient-actions {
+        display: block;
+        text-align: center;
+    }
+</style>
+{% endblock %}

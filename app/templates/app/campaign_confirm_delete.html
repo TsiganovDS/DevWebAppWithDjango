@@ -1,0 +1,9 @@
+{% extends 'app/base.html' %}
+{% block content %}
+    <h2>Удалить рассылку "{{ object.subject }}"?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-outline-primary" type="submit">Удалить</button>
+        <a class="btn btn-outline-primary" href="{% url 'app:campaign_list' %}">Отмена</a>
+    </form>
+{% endblock %}

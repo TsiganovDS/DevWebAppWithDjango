@@ -1,0 +1,10 @@
+{% extends 'app/base.html' %}
+{% block content %}
+    <h1>Удалить сообщение</h1>
+    <p>Вы уверены, что хотите удалить сообщение "{{ message.subject }}"?</p>
+    <form action="{% url 'app:delete_confirm_message' message.id %}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-outline-primary" type="submit">Да, удалить</button>
+    </form>
+    <a class="btn btn-outline-primary" href="{% url 'app:messages_list' %}">Нет, вернуться к списку сообщений</a>
+{% endblock %}

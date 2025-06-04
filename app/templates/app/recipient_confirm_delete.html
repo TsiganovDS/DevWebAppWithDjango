@@ -1,0 +1,12 @@
+{% include 'app/base.html' %}
+{% block content %}
+<form class="card-body text-center" method="POST" action="{% url 'app:recipient_delete' recipient.id %}">
+    {% if recipient %}
+        <h1>Удаление получателя</h1>
+        {% csrf_token %}
+        <p>Ты точно хочешь удалить получателя <strong>{{ recipient.name }}</strong> с email <strong>{{ recipient.email }}</strong>?</p>
+        <button class="btn btn-outline-danger" type="submit">Удалить</button>
+        <a class="btn btn-outline-primary ms-2" href="/">Отмена</a>
+    {% endif %}
+</form>
+{% endblock %}
