@@ -27,7 +27,7 @@
 ### Django-redis
 ## 📂 Установка
 ### Клонировать репозиторий:
-### git clone https://github.com/yournameDevWebAppWithDjango.git
+### git clone https://github.com/TsiganovDS/DevWebAppWithDjango
 ### cd DevWebAppWithDjango
 ## Создать и активировать виртуальное окружение:
 ### python -m venv venv
