@@ -1,0 +1,31 @@
+{% extends 'app/base.html' %}
+{% block title %}Попытки рассылок{% endblock %}
+
+{% block content %}
+  <h2 class="mb-4">📨 Попытки рассылок</h2>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Дата и время</th>
+        <th>Рассылка</th>
+        <th>Статус</th>
+        <th>Ответ сервера</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for attempt in attempts %}
+        <tr>
+          <td>{{ attempt.time }}</td>
+          <td>{{ attempt.campaign }}</td>
+          <td>{{ attempt.status }}</td>
+          <td>{{ attempt.server_response }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">Пока нет попыток отправки.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

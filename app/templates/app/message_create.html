@@ -1,0 +1,22 @@
+{% extends 'app/base.html' %}
+{% block content %}
+    <title>Добавить сообщение</title>
+    <div class="container mt-4" style="max-width: 600px;">
+        <h1 class="mb-4 text-center">Добавить новое сообщение</h1>
+        <form method="post" action="{% url 'app:message_create' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="subject" class="form-label">Тема:</label>
+                <input type="text" id="subject" name="subject" required class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="body" class="form-label">Текст сообщения:</label>
+                <textarea id="body" name="body" required class="form-control" rows="4"></textarea>
+            </div>
+            <button class="btn btn-outline-primary w-100" type="submit">Создать</button>
+        </form>
+    </div>
+{% endblock %}
+
+
+

@@ -1,0 +1,21 @@
+{% extends 'app/base.html' %}
+{% block content %}
+    <form class="text-center" method="post" action="{% url 'app:campaign_send' campaign.pk %}">
+        <h1>Ручная отправка рассылки</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if campaign and campaign.pk %}
+            <input type="hidden" name="campaign.pk" value="{{ campaign.pk }}">
+            <button type="submit">Отправить рассылку</button>
+        {% else %}
+            <span>Выберите рассылку для отправки</span>
+        {% endif %}
+    </form>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

@@ -1,18 +1,23 @@
-{% include 'app/header.html' %}
+{% include 'app/base.html' %}
+{% block content %}
 <div class="text-center">
-    <h1 class="text-center">Получатели рассылки</h1>
-    <a class="btn btn-outline-primary" href="{% url 'app:recipient_create' %}">Добавить получателя</a>
-    <a class="btn btn-outline-primary" href="{% url 'app:home' %}">Назад</a>
-    <ol class="recipient-list">
+    <h1 class="text-center text-primary">📧 Получатели рассылок</h1>
+    <div class="mb-4">
+        <a class="btn btn-outline-primary btn-lg" href="{% url 'app:recipient_create' %}">➕ Добавить получателя</a>
+        <a class="btn btn-outline-secondary btn-lg" href="{% url 'app:home' %}">🔙 Назад</a>
+    </div>
+    <ol class="recipient-list list-unstyled">
         {% for recipient in recipients %}
-            <li>
-                <span class="recipient-info">
-                    {{ recipient.full_name }} - {{ recipient.email }}
-                </span>
-                <span class="recipient-actions">
-                    <a class="btn btn-outline-primary" href="{% url 'app:recipient_update' recipient.pk %}">Редактировать</a>
-                    <a class="btn btn-outline-danger" href="{% url 'app:recipient_delete' recipient.pk %}">Удалить</a>
-                </span>
+            <li class="mb-3">
+                <div class="recipient-info p-3 border rounded shadow-sm">
+                    <span class="h5">{{ recipient.full_name }}</span>
+                    <span class="text-muted"> - {{ recipient.email }}</span>
+                    <span class="text-info"> (ID: {{ recipient.pk }})</span>
+                </div>
+                <div class="recipient-actions mt-2">
+                    <a class="btn btn-outline-primary btn-sm" href="{% url 'app:recipient_update' recipient.pk %}">✏️ Редактировать</a>
+                    <a class="btn btn-outline-danger btn-sm" href="{% url 'app:recipient_delete' recipient.pk %}">🗑️ Удалить</a>
+                </div>
             </li>
         {% endfor %}
     </ol>
@@ -20,15 +25,16 @@
 
 <style>
     .recipient-list {
-        list-style-position: inside; / Цифры будут внутри списка /
-        padding-left: 0; / Убираем отступ слева /
+        list-style-position: inside;
+        padding-left: 0;
     }
     .recipient-info {
-        text-align: center; / Центруем текст /
-        display: block; / Каждое имя на новой строке /
+        text-align: center;
+        display: block;
     }
     .recipient-actions {
-        display: block; / Каждое действие на новой строке /
-        text-align: center; / Центруем ссылки /
+        display: block;
+        text-align: center;
     }
 </style>
+{% endblock %}

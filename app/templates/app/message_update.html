@@ -1,0 +1,16 @@
+{% extends 'app/base.html' %}
+{% block content %}
+    <h1 class="text-center" >Редактировать сообщение</h1>
+    <form class="text-center" action="{% url 'app:message_update' message.id %}" method="post">
+        {% csrf_token %}
+        <label for="subject">Тема:</label>
+        <input type="text" id="subject" name="subject" value="{{ message.subject }}" required>
+        <br>
+        <label for="body">Текст сообщения:</label>
+        <textarea id="body" name="body" required>{{ message.body }}</textarea>
+        <br>
+        <button class="btn btn-outline-primary" type="submit">Сохранить изменения</button>
+        <a class="btn btn-outline-primary" href="{% url 'app:messages_list' %}">Назад к списку сообщений</a>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-body">
+            <h1 class="card-text fs-4">{{ message.subject }}</h1>
+            <p class="card-title fs-5 text-success fst-italic">{{ message.body }}</p>
+            <div class="mb-3">
+                <a class="btn btn-outline-primary me-2" href="{% url 'app:message_update' message.pk %}">Редактировать</a>
+                <a class="btn btn-outline-success me-2" href="{% url 'app:campaign_create' message.pk %}">Создать рассылку</a>
+                <a class="btn btn-outline-secondary" href="{% url 'app:messages_list' %}">Назад к списку</a>
+                <form action="{% url 'app:message_confirm_delete' message.pk %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-danger" type="submit" onclick="return confirm('Точно удалить сообщение?');">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

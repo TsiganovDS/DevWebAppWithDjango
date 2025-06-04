@@ -1,4 +1,4 @@
-{% include 'app/header.html' %}
+{% include 'app/base.html' %}
 {% block content %}
 <form class="card-body text-center" method="POST" action="{% url 'app:recipient_delete' recipient.id %}">
     {% if recipient %}

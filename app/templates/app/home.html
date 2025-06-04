@@ -1,14 +1,62 @@
-<!DOCTYPE html>
-<html lang="ru">
-{% include 'app/header.html' %}
-<body class="text-center">
-     <h1>Статистика рассылок</h1>
-     <div>
-         <p>Общее количество рассылок: {{ total_campaigns }}</p>
-         <p>Количество активных рассылок: {{ active_campaigns }}</p>
-         <p>Количество уникальных получателей: <a href="{% url 'app:recipient_list' %}"> {{ unique_recipients }} </a></p>
-     </div>
+{% extends 'app/base.html' %}
+{% block title %}Главная{% endblock %}
 
-{% include 'app/footer.html' %}
-</body>
-</html>
+{% block content %}
+ <h1 class="mb-4 text-center text-primary">📬 Сервис рассылок</h1>
+
+<div class="row g-3">
+  <div class="col-md-4">
+    <a href="{% url 'app:campaign_list' %}" class="text-decoration-none">
+      <div class="card border-primary shadow rounded-3 animate_animated animate_bounce h-100">
+        <div class="card-body">
+          <h5 class="card-title text-primary">Всего рассылок</h5>
+          <p class="card-text display-5">{{ total_campaigns }}</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-4">
+    <a href="{% url 'app:campaign_list' %}" class="text-decoration-none">
+      <div class="card border-success shadow rounded-3 animate_animated animate_bounce h-100">
+        <div class="card-body">
+          {% for campaign in campaigns %}
+              <div>{{ campaign.subject }} — {{ campaign.status }}</div>
+          {% empty %}
+              <div>Нет активных рассылок</div>
+          {% endfor %}
+          <h5 class="card-title text-success">Активных рассылок</h5>
+          <p class="card-text display-5">{{ campaign.is_active }}</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-4">
+    <a href="{% url 'app:recipient_list' %}" class="text-decoration-none">
+      <div class="card border-info shadow rounded-3 animate_animated animate_bounce h-100">
+        <div class="card-body">
+          <h5 class="card-title text-info">Уникальных клиентов</h5>
+          <p class="card-text display-5">{{ unique_recipients }}</p>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div class="mt-5 text-center">
+  <a href="{% url 'app:recipient_list' %}" class="btn btn-outline-primary btn-lg">👥 Клиенты</a>
+  <a href="{% url 'app:messages_list' %}" class="btn btn-outline-secondary btn-lg">💬 Сообщения</a>
+  <a href="{% url 'app:campaign_list' %}" class="btn btn-outline-success btn-lg">📨 Рассылки</a>
+</div>
+
+<style>
+  .card {
+    transition: transform 0.2s;
+  }
+  .card:hover {
+    transform: scale(1.05);
+  }
+</style>
+{% endblock %}
+
+
+

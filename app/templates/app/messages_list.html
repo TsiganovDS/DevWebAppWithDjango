@@ -1,0 +1,25 @@
+{% extends 'app/base.html' %}
+{% block title %}Список сообщений{% endblock %}
+{% block content %}
+<h1 class="messages-list mb-4" >Сообщения</h1>
+<a href="{% url 'app:message_create' %}" class="btn btn-outline-success mb-3 messages-list" >➕ Создать сообщение</a>
+
+<style>
+  .messages-list {
+    padding-left: 40px;
+  }
+</style>
+
+
+<ol class="mb-3">
+  {% for message in object_list %}
+    <li class="mb-2">
+      <a class="fst-italic" href="{% url 'app:message_detail' message.pk %}">
+        {{ message.subject }}
+      </a>
+    </li>
+  {% endfor %}
+</ol>
+{% endblock %}
+
+
