@@ -15,14 +15,26 @@ from .forms import RecipientForm
 @cache_page(60 * 2)
 def home_view(request):
     total_campaigns = Campaign.objects.count()
-    active_campaigns = Campaign.objects.filter(status="active").count()
+    active_campaigns_count = Campaign.objects.filter(status="started").count()
+    active_campaigns = Campaign.objects.filter(status="started")
     unique_recipients = Recipient.objects.count()
     context = {
         "total_campaigns": total_campaigns,
         "active_campaigns": active_campaigns,
+        "active_campaigns_count": active_campaigns_count,
         "unique_recipients": unique_recipients,
     }
     return render(request, "app/home.html", context)
+
+
+def campaign_active(request):
+    active_campaigns = Campaign.objects.filter(status="started")
+    active_campaigns_count = active_campaigns.count()
+    context = {
+        "active_campaigns": active_campaigns,
+        "active_campaigns_count": active_campaigns_count,
+    }
+    return render(request, "app/campaign_active.html", context)
 
 
 class RecipientListView(LoginRequiredMixin, ListView):
@@ -137,14 +149,20 @@ def campaign_send(request, pk):
             server_response=response,
         )
 
-    campaign.status = "Запущена"
-    campaign.save()
+    if success_count > 0:
+        campaign.status = "started"
+        campaign.save()
 
     messages.success(
         request,
         f"Рассылка отправлена. Успешно: {success_count}/{recipients.count()}",
     )
     return redirect("app:campaign_detail", pk=pk)
+
+
+def campaign_list(request):
+    active_campaigns = Campaign.objects.filter(status="started")
+    return render(request, "app/campaign_list.html", {"campaigns": active_campaigns})
 
 
 class CampaignDetailView(LoginRequiredMixin, DetailView):
@@ -166,9 +184,11 @@ class CampaignListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['message'] = Message.objects.first()
-        context['active_campaigns_count'] = Campaign.objects.filter(status='started').count()
-        context['active_campaigns_list'] = Campaign.objects.filter(status='started')
+        context["message"] = Message.objects.first()
+        context["active_campaigns_count"] = Campaign.objects.filter(
+            status="started"
+        ).count()
+        context["active_campaigns"] = Campaign.objects.filter(status="started")
         return context
 
     def get_queryset(self):
@@ -176,19 +196,6 @@ class CampaignListView(LoginRequiredMixin, ListView):
         if user.groups.filter(name="Менеджеры").exists():
             return Campaign.objects.all()
         return Campaign.objects.filter(owner=user)
-
-    def main_page(request):
-        campaigns = Campaign.objects.filter(is_active=True)
-        total_campaigns = Campaign.objects.count()
-        active_campaigns = campaigns.count()
-
-        context = {
-            'campaigns': campaigns,
-            'total_campaigns': total_campaigns,
-            'active_campaigns': active_campaigns,
-        }
-        return render(request, 'app/home.html', context)
-
 
 
 class CampaignDeleteView(LoginRequiredMixin, DeleteView):
@@ -212,7 +219,7 @@ class CampaignCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['message'] = Message.objects.get(pk=self.kwargs['message_id'])
+        context["message"] = Message.objects.get(pk=self.kwargs["message_id"])
         return context
 
 

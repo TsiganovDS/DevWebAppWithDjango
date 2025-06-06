@@ -9,7 +9,6 @@ class RecipientForm(forms.ModelForm):
         fields = ["full_name", "email", "comment"]
 
 
-
 class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
@@ -26,8 +25,6 @@ class CampaignForm(forms.ModelForm):
     class Meta:
         model = Campaign
         fields = [
-            "subject",
-            "body",
             "status",
             "created_at",
             "message",

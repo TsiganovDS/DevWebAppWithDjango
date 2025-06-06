@@ -1,0 +1,25 @@
+{% extends 'app/base.html' %}
+{% block title %}Активные рассылки{% endblock %}
+
+{% block content %}
+<h3>Активные рассылки ({{ active_campaigns_count }}):</h3>
+<ul class="list-group">
+    {% for campaign in active_campaigns %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>Рассылка #{{ campaign.pk }} - {{ campaign.message }}</span>
+        <div class="btn-group">
+            <a href="{% url 'app:campaign_detail' campaign.pk %}" class="btn btn-sm btn-outline-primary">
+                Подробнее
+            </a>
+            <a href="{% url 'app:campaign_send' campaign.pk %}"
+               class="btn btn-sm btn-outline-warning"
+               onclick="return confirm('Точно отправить рассылку {{ campaign.pk }}?')">
+                📨 Отправить
+            </a>
+        </div>
+    </li>
+    {% empty %}
+    <div>Нет активных рассылок</div>
+    {% endfor %}
+</ul>
+{% endblock %}
