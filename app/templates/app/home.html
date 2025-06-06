@@ -10,26 +10,21 @@
       <div class="card border-primary shadow rounded-3 animate_animated animate_bounce h-100">
         <div class="card-body">
           <h5 class="card-title text-primary">Всего рассылок</h5>
-          <p class="card-text display-5">{{ total_campaigns }}</p>
+          <p class="card-text display-5"> {{ total_campaigns }}
         </div>
       </div>
     </a>
   </div>
   <div class="col-md-4">
-    <a href="{% url 'app:campaign_list' %}" class="text-decoration-none">
-      <div class="card border-success shadow rounded-3 animate_animated animate_bounce h-100">
-        <div class="card-body">
-          {% for campaign in campaigns %}
-              <div>{{ campaign.subject }} — {{ campaign.status }}</div>
-          {% empty %}
-              <div>Нет активных рассылок</div>
-          {% endfor %}
-          <h5 class="card-title text-success">Активных рассылок</h5>
-          <p class="card-text display-5">{{ campaign.is_active }}</p>
-        </div>
+  <a href="{% url 'app:campaign_active' %}" class="text-decoration-none">
+    <div class="card border-success shadow rounded-3 animate_animated animate_bounce h-100">
+      <div class="card-body">
+        <h5 class="card-title text-success">Активных рассылок</h5>
+        <p class="card-text display-5">{{ active_campaigns_count }}</p>
       </div>
-    </a>
-  </div>
+    </div>
+  </a>
+</div>
   <div class="col-md-4">
     <a href="{% url 'app:recipient_list' %}" class="text-decoration-none">
       <div class="card border-info shadow rounded-3 animate_animated animate_bounce h-100">

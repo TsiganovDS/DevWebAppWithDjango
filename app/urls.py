@@ -6,7 +6,8 @@ from .views import (CampaignCreateView, CampaignDeleteView, CampaignDetailView,
                     MessageDeleteView, MessageDetailView, MessageListView,
                     MessageUpdateView, RecipientCreateView,
                     RecipientDeleteView, RecipientListView,
-                    RecipientUpdateView, SendingAttemptListView)
+                    RecipientUpdateView, SendingAttemptListView,
+                    campaign_active, campaign_send)
 
 app_name = "app"
 
@@ -42,11 +43,17 @@ urlpatterns = [
         name="campaign_confirm_delete",
     ),
     path("campaign_send/<int:pk>/", views.campaign_send, name="campaign_send"),
-    path("campaign/create/<int:message_id>", CampaignCreateView.as_view(), name="campaign_create"),
+    path(
+        "campaign/create/<int:message_id>",
+        CampaignCreateView.as_view(),
+        name="campaign_create",
+    ),
     path("campaign/<int:pk>/edit/", CampaignUpdateView.as_view(), name="campaign_edit"),
     path(
         "campaigns/attempts/",
         SendingAttemptListView.as_view(),
         name="campaign_attempt_list",
     ),
+    path("campaign/send/<int:pk>/", campaign_send, name="campaign_send"),
+    path("campaign/active/", campaign_active, name="campaign_active"),
 ]

@@ -5,12 +5,9 @@ from .models import Campaign, Message, Recipient, SendingAttempt
 
 @admin.register(Recipient)
 class RecipientAdmin(admin.ModelAdmin):
-    list_display = ('email', 'phone_number', 'country', 'avatar')
+    list_display = ("email", "phone_number", "country", "avatar")
     list_filter = ("full_name",)
     search_fields = ("full_name",)
-
-
-0
 
 
 @admin.register(Message)
