@@ -43,11 +43,22 @@ class RecipientListView(LoginRequiredMixin, ListView):
     context_object_name = "recipients"
 
 
+    def get_queryset(self):
+        user = self.request.user
+        if user.groups.filter(name="Менеджеры").exists():
+            return Recipient.objects.all()
+        return Recipient.objects.filter(owner=user)
+
+
 class RecipientCreateView(LoginRequiredMixin, CreateView):
     model = Recipient
     form_class = RecipientForm
     template_name = "app/recipient_create.html"
     success_url = reverse_lazy("app:recipient_list")
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
 
 
 class RecipientUpdateView(LoginRequiredMixin, UpdateView):

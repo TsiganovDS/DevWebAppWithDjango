@@ -15,7 +15,7 @@ class Recipient(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="recipients",
-        default=1,
+        null=True, blank=True,
     )
 
     def __str__(self):
@@ -29,7 +29,7 @@ class Message(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="messages",
-        default=1,
+        null=True, blank=True,
     )
 
     def __str__(self):
@@ -63,6 +63,7 @@ class Campaign(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="campaigns",
+        null=True, blank=True
     )
 
     class Meta:
